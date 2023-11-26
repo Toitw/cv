@@ -68,9 +68,9 @@ const handleUpdateEducation = (e) => {
 
   return (
     <div className='component-container' id='education-container'>
+        <h2>Education</h2>
       {educations.map((education, index) => (
         <div key={index}>
-          <h2>Education</h2>
           <h3>Degree: {education.degree}</h3>
           <p>School: {education.school}</p>
           <p>Year: {education.year}</p>

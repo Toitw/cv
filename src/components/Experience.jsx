@@ -50,9 +50,9 @@ const Experience = () => {
 
   return (
     <div className='component-container' id='experience-container'>
+        <h2>Experience</h2>
       {experiences.map((experience, index) => (
         <div key={index}>
-          <h2>Experience</h2>
           <h3>Company: {experience.company}</h3>
           <p>Position: {experience.position}</p>
           <p>Duration: {experience.duration}</p>
