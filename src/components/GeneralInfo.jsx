@@ -1,51 +1,55 @@
 import React, { useState } from 'react';
-import '../styles/GeneralInfo.css';
+import Modal from 'react-modal';
 
-const FieldOrText = ({ label, name, type, value, onChange, editing }) => {
-    return (
-        <label>
-            {label}:
-            {editing ? (
-                <input 
-                    type={type}
-                    name={name}
-                    value={value}
-                    onChange={onChange}
-                />
-            ) : (
-                <span> {value}</span>
-            )}
-        </label>
-    );
+const GeneralInfo = () => {
+  const [info, setInfo] = useState({ name: '', surname: '', telephone: '', email: '', socialMedia: '' });
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+
+  const handleInputChange = (e) => {
+    setInfo({ ...info, [e.target.name]: e.target.value });
+  };
+
+  const handleEditInfo = () => {
+    setModalIsOpen(true);
+  };
+
+  const handleUpdateInfo = (e) => {
+    e.preventDefault();
+    setModalIsOpen(false);
+  };
+
+  const handleCancelEditing = () => {
+    setModalIsOpen(false);
+  };
+
+  return (
+    <div>
+      <h2>General Information</h2>
+      <p>Name: {info.name}</p>
+      <p>Surname: {info.surname}</p>
+      <p>Telephone: {info.telephone}</p>
+      <p>Email: {info.email}</p>
+      <p>Social Media: {info.socialMedia}</p>
+      <button onClick={handleEditInfo}>Edit</button>
+      <Modal isOpen={modalIsOpen} onRequestClose={handleCancelEditing}>
+        <form onSubmit={handleUpdateInfo}>
+          <h2>Edit General Information</h2>
+          <label htmlFor="name">Name</label>
+          <input id="name" name="name" value={info.name} onChange={handleInputChange} />
+          <label htmlFor="surname">Surname</label>
+          <input id="surname" name="surname" value={info.surname} onChange={handleInputChange} />
+          <label htmlFor="telephone">Telephone</label>
+          <input id="telephone" name="telephone" value={info.telephone} onChange={handleInputChange} />
+          <label htmlFor="email">Email</label>
+          <input id="email" name="email" value={info.email} onChange={handleInputChange} />
+          <label htmlFor="socialMedia">Social Media</label>
+          <input id="socialMedia" name="socialMedia" value={info.socialMedia} onChange={handleInputChange} />
+          <button type="submit">Update Information</button>
+          <button type="button" onClick={handleCancelEditing}>Cancel</button>
+        </form>
+      </Modal>
+    </div>
+  );
 };
 
-function GeneralInfo() {
-    const [editing, setEditing] = useState(false);
-    const [info, setInfo] = useState({ name: '', surname: '', email: '', telephone: '' });
-
-    const handleInputChange = (e) => {
-        setInfo({ ...info, [e.target.name]: e.target.value });
-    };
-
-    const toggleEdit = () => {
-        setEditing(!editing);
-    };
-
-    return (
-        <div className='general-info-container'>
-            <form>
-                <div className='general-info-input-container'>
-                    <FieldOrText label="Name" name="name" type="text" value={info.name} onChange={handleInputChange} editing={editing} />
-                    <FieldOrText label="Surname" name="surname" type="text" value={info.surname} onChange={handleInputChange} editing={editing} />
-                    <FieldOrText label="Email" name="email" type="email" value={info.email} onChange={handleInputChange} editing={editing} />
-                    <FieldOrText label="Telephone" name="telephone" type="tel" value={info.telephone} onChange={handleInputChange} editing={editing} />
-                </div>
-                <button type="button" onClick={toggleEdit}>{editing ? 'Save' : 'Edit'}</button>
-            </form>
-        </div>
-    );
-}
-
 export default GeneralInfo;
-
-
