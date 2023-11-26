@@ -60,7 +60,7 @@ const Experience = () => {
           <button onClick={() => handleDeleteExperience(index)}>Delete</button>
         </div>
       ))}
-      <button onClick={handleAddExperience}>Add Experience</button>
+      <button onClick={handleAddExperience} >Add Experience</button>
       <Modal isOpen={modalIsOpen} onRequestClose={handleCancelEditing}>
         <form onSubmit={handleUpdateExperience}>
           <h2>Edit Experience</h2>
