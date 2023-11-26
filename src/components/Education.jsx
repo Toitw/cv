@@ -67,10 +67,11 @@ const handleUpdateEducation = (e) => {
   };
 
   return (
-    <div>
+    <div className='component-container' id='education-container'>
       {educations.map((education, index) => (
         <div key={index}>
-          <h2>Degree: {education.degree}</h2>
+          <h2>Education</h2>
+          <h3>Degree: {education.degree}</h3>
           <p>School: {education.school}</p>
           <p>Year: {education.year}</p>
           <button onClick={() => handleEditEducation(index)}>Edit</button>

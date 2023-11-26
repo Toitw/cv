@@ -23,7 +23,7 @@ const GeneralInfo = () => {
   };
 
   return (
-    <div>
+    <div className='component-container' id='general-info-container'>
       <h2>General Information</h2>
       <p>Name: {info.name}</p>
       <p>Surname: {info.surname}</p>
