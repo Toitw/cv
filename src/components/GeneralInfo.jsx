@@ -32,12 +32,14 @@ function GeneralInfo() {
     };
 
     return (
-        <div>
-            <form className='general-info-form'>
-                <FieldOrText label="Name" name="name" type="text" value={info.name} onChange={handleInputChange} editing={editing} />
-                <FieldOrText label="Surname" name="surname" type="text" value={info.surname} onChange={handleInputChange} editing={editing} />
-                <FieldOrText label="Email" name="email" type="email" value={info.email} onChange={handleInputChange} editing={editing} />
-                <FieldOrText label="Telephone" name="telephone" type="tel" value={info.telephone} onChange={handleInputChange} editing={editing} />
+        <div className='general-info-container'>
+            <form>
+                <div className='general-info-input-container'>
+                    <FieldOrText label="Name" name="name" type="text" value={info.name} onChange={handleInputChange} editing={editing} />
+                    <FieldOrText label="Surname" name="surname" type="text" value={info.surname} onChange={handleInputChange} editing={editing} />
+                    <FieldOrText label="Email" name="email" type="email" value={info.email} onChange={handleInputChange} editing={editing} />
+                    <FieldOrText label="Telephone" name="telephone" type="tel" value={info.telephone} onChange={handleInputChange} editing={editing} />
+                </div>
                 <button type="button" onClick={toggleEdit}>{editing ? 'Save' : 'Edit'}</button>
             </form>
         </div>
