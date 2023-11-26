@@ -1,45 +1,48 @@
 import React, { useState } from 'react';
+import Modal from 'react-modal';
 
 const Education = () => {
   const [educations, setEducations] = useState([]); // Replace with your actual data
   const [editingIndex, setEditingIndex] = useState(null);
   const [editingEntry, setEditingEntry] = useState({ degree: '', school: '', year: '' });
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const handleAddEducation = () => {
-    // Create a new education entry
-    const newEducation = {
-      degree: '',
-      school: '',
-      year: '',
-    };
+    // Set a new blank education entry for editing
+    setEditingEntry({ degree: '', school: '', year: '' });
+    setEditingIndex(null); // Important to indicate a new entry is being added
 
-    // Add the new education entry to the list
-    setEducations([...educations, newEducation]);
-  };
+    // Open the modal
+    setModalIsOpen(true);
+};
 
-  const handleEditEducation = (index) => {
-    // Set the editing index and entry
-    setEditingIndex(index);
-    setEditingEntry(educations[index]);
-  };
-
-  const handleUpdateEducation = (e) => {
+const handleUpdateEducation = (e) => {
     e.preventDefault();
 
     // Update the education entry
-    const updatedEducations = [...educations];
-    updatedEducations[editingIndex] = editingEntry;
+    let updatedEducations = [...educations];
+    if (editingIndex === null) {
+        updatedEducations = [...educations, editingEntry]; // Add new entry
+    } else {
+        updatedEducations[editingIndex] = editingEntry; // Update existing entry
+    }
     setEducations(updatedEducations);
 
     // Clear the editing index and entry
     setEditingIndex(null);
     setEditingEntry({ degree: '', school: '', year: '' });
-  };
+
+    // Close the modal
+    setModalIsOpen(false);
+};
 
   const handleCancelEditing = () => {
     // Clear the editing index and entry
     setEditingIndex(null);
     setEditingEntry({ degree: '', school: '', year: '' });
+
+    // Close the modal
+    setModalIsOpen(false);
   };
 
   const handleInputChange = (e) => {
@@ -66,19 +69,19 @@ const Education = () => {
         </div>
       ))}
       <button onClick={handleAddEducation}>Add Education</button>
-      {editingIndex !== null && (
+        <Modal isOpen={modalIsOpen} onRequestClose={handleCancelEditing}>
         <form onSubmit={handleUpdateEducation}>
-        <h2>Edit Education</h2>
-        <label htmlFor="degree">Degree</label>
-        <input id="degree" name="degree" value={editingEntry.degree} onChange={handleInputChange} />
-        <label htmlFor="school">School</label>
-        <input id="school" name="school" value={editingEntry.school} onChange={handleInputChange} />
-        <label htmlFor="year">Year</label>
-        <input id="year" name="year" value={editingEntry.year} onChange={handleInputChange} />
-        <button type="submit">Update Education</button>
-        <button type="button" onClick={handleCancelEditing}>Cancel</button>
-      </form>
-      )}
+          <h2>Edit Education</h2>
+          <label htmlFor="degree">Degree</label>
+          <input id="degree" name="degree" value={editingEntry.degree} onChange={handleInputChange} />
+          <label htmlFor="school">School</label>
+          <input id="school" name="school" value={editingEntry.school} onChange={handleInputChange} />
+          <label htmlFor="year">Year</label>
+          <input id="year" name="year" value={editingEntry.year} onChange={handleInputChange} />
+          <button type="submit">Update Education</button>
+          <button type="button" onClick={handleCancelEditing}>Cancel</button>
+        </form>
+        </Modal>
     </div>
   );
 };
