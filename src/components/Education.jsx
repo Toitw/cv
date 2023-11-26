@@ -45,6 +45,15 @@ const handleUpdateEducation = (e) => {
     setModalIsOpen(false);
   };
 
+  const handleEditEducation = (index) => {
+    // Set the editing index and entry
+    setEditingIndex(index);
+    setEditingEntry(educations[index]);
+
+    // Open the modal
+    setModalIsOpen(true);
+  }
+
   const handleInputChange = (e) => {
     // Update the editing entry
     setEditingEntry({ ...editingEntry, [e.target.name]: e.target.value });
